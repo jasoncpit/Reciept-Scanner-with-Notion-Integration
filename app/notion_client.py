@@ -16,7 +16,7 @@ class NotionReceiptManager:
     def __init__(self):
         self.client = Client(auth=os.environ["NOTION_TOKEN"])
         self.parent_page_id = os.getenv("PAGE_ID")
-        self.transaction_db_id = os.getenv("TRANSACTION_DB_ID")
+        self.transaction_db_id = os.getenv("NOTION_TRANSACTIONS_DATABASE_ID")
 
     def create_transaction_db(self, parent_page_id: str, database_name: str = "Transactions Database") -> Dict[str, Any]:
         """
