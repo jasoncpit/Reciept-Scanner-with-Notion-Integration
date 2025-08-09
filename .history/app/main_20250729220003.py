@@ -38,9 +38,7 @@ async def scan_receipt(
         })
         
         # Process the receipt image
-        receipt_response = process_receipt(image_bytes)       
-
-        #  
+        receipt_response = process_receipt(image_bytes)        
         # Push to Notion
         notion_response = push_to_notion(receipt_response.output_parsed)
         

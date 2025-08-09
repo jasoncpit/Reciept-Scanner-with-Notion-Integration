@@ -205,3 +205,4 @@ INFO:app.notion_client:NotionReceiptManager initialized
 127.0.0.1:52402 - "GET /health HTTP/1.1" 200
 127.0.0.1:52499 - "GET /scan HTTP/1.1" 405
 127.0.0.1:52501 - "GET / HTTP/1.1" 200
+127.0.0.1:52783 - "GET / HTTP/1.1" 200
