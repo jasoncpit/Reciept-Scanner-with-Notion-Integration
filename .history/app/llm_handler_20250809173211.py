@@ -23,7 +23,7 @@ def process_receipt(image_bytes: bytes):
     base64_image = base64.b64encode(image_bytes).decode('utf-8')
     
     response = client.responses.parse(
-        model="gpt-5",
+        model="gpt-4o-mini-2024-07-18",
         input=[
             {"role": "system", "content": system_prompt},
             {
@@ -41,9 +41,6 @@ def process_receipt(image_bytes: bytes):
             }
         ],
         text_format=Receipt,
-        reasoning={
-        "effort": "minimal"
-    }
     )
     logger.info(f"OpenAIResponse: {response}")
     return response
