@@ -15,13 +15,21 @@ load_dotenv()
 with open('app/prompt.yaml', 'r') as file:
     system_prompt = yaml.safe_load(file)['SYSTEM_PROMPT']
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+def get_openai_client():
+    """Initializes and returns the OpenAI client, ensuring the API key is set."""
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        # This will be caught by the global exception handler in main.py
+        raise ValueError("OPENAI_API_KEY environment variable not found.")
+    return OpenAI(api_key=api_key)
+
 database_id = os.getenv("NOTION_TRANSACTIONS_DATABASE_ID")
 
 def process_receipt(image_bytes: bytes):
     # Convert image bytes to base64
     base64_image = base64.b64encode(image_bytes).decode('utf-8')
     
+    client = get_openai_client()
     response = client.responses.parse(
         model="gpt-5",
         input=[
