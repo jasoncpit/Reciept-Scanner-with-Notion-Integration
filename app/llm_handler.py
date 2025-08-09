@@ -71,11 +71,18 @@ def push_to_notion(receipt_data: Receipt) -> dict:
         # Convert enum to string value before sending to Notion
         receipt_dict = receipt_data.model_dump()
         receipt_dict['reciept_category'] = receipt_dict['reciept_category'].value
-        # If there are any null values, set them to "Unknown"
-        for key, value in receipt_dict.items():
-            if value is None:
-                receipt_dict[key] = "Unknown"
-        logger.info(f"Receipt dictionary: {receipt_dict}")
+        # Do NOT blanket-replace None with strings. Notion expects correct types.
+        # Normalize optional text fields to a friendly fallback, leave numbers/dates as-is.
+        for text_key in [
+            'store_name',
+            'store_first_line',
+            'store_second_line',
+            'store_postcode',
+        ]:
+            if receipt_dict.get(text_key) in (None, ""):
+                receipt_dict[text_key] = "Unknown"
+
+        logger.info(f"Receipt dictionary (normalized): {receipt_dict}")
         page = notion_manager.create_new_entry(receipt_dict)
         if page:
             return {

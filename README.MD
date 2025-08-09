@@ -1,6 +1,3 @@
-Sure! Here's a clean and friendly `README.md` for your **LLM-powered Receipt Scanner API** project, designed for local deployment and Apple Shortcuts integration.
-
----
 
 # 🧾 J&R Receipt Scanner API
 

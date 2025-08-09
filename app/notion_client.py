@@ -105,8 +105,9 @@ class NotionReceiptManager:
             }
         }
 
-        if properties.get("discount"):
-            page_properties["Discount"] = {"number": properties["discount"]}
+        discount_value = properties.get("discount", None)
+        if isinstance(discount_value, (int, float)):
+            page_properties["Discount"] = {"number": float(discount_value)}
 
         page = self.client.pages.create(
             parent={"database_id": database_id},
