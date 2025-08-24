@@ -8,7 +8,7 @@ app = FastAPI(title="Receipt Scanner API", version="1.0.0")
 limiter = setup_security_middleware(app)
 
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")
-MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE_MB", "10"))
+MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE_MB", "100"))
 
 @app.post("/scan")
 @limiter.limit(f"{os.getenv('RATE_LIMIT_PER_MINUTE', '10')}/minute")
